@@ -1,0 +1,9 @@
+.general {
+   text-align: left;
+   background-color: antiquewhite;
+   padding: 10px;
+}
+.detailedMentions {
+   list-style: none;
+   padding: 0;
+}
