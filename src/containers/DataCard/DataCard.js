@@ -2,60 +2,67 @@
 import css from './DataCard.module.css';
 
 // react
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // components
-import Title from '../../components/Title';
 import WordCloud from '../../components/WordCloud';
 import Metadata from '../../components/Metadata/Metadata';
 
 const DataCard = ({ title, data }) => {
-   const [currentWord, setCurrentWord] = useState(null);
-   const [currentWordMetadata, setCurrentWordMetadata] = useState(null);
-
-   useLayoutEffect(() => {
-      setCurrentWordMetadata(data[0]);
-   }, [data]);
+   const [currentWord, setCurrentWord] = useState({});
+   const [mappedData, setMappedData] = useState(null);
 
    useEffect(() => {
-      const wordMetadata = data.find((word) => currentWord === word.id);
+      // find topic with highest sentiment score and display it as default
+      const wordMaxSentimentScore = data.find(
+         (word) => findWordMaxSentimetnScore(data) === word.id
+      );
+      setCurrentWord(wordMaxSentimentScore);
 
-      setCurrentWordMetadata(wordMetadata);
-   }, [currentWord, data]);
+      // map incoming data on worldcloud data model
+      const mappedData = data.map((topic) => {
+         return {
+            id: topic.id,
+            text: topic.label,
+            value: topic.sentimentScore,
+         };
+      });
+      setMappedData(mappedData);
+   }, [data]);
 
-   const currentWordClicked = (word) => {
-      setCurrentWord(word);
+   const handleClickedWord = (id) => {
+      const currentWord = data.find((word) => id === word.id);
+      setCurrentWord(currentWord);
    };
 
-   const mappedData = data.map((topic) => {
-      const mappedTopic = {};
-      mappedTopic.id = topic.id;
-      mappedTopic.text = topic.label;
-      mappedTopic.value = topic.sentimentScore;
-
-      return mappedTopic;
-   });
-
    return (
-      <div className={css.container}>
-         <Title text={title} />
-         <main>
+      <div className={css.card}>
+         <h1 className={css.title}>{title}</h1>
+         <div className={css.wrapper}>
             <WordCloud
                words={mappedData}
-               currentWordClicked={currentWordClicked}
+               handleClickedWord={handleClickedWord}
             />
-         </main>
-         <aside>
-            {currentWordMetadata && (
-               <Metadata
-                  topic={currentWordMetadata.label}
-                  total={currentWordMetadata.volume}
-                  sentiment={currentWordMetadata.sentiment}
-               />
-            )}
-         </aside>
+            {currentWord && <Metadata currentWord={currentWord} />}
+         </div>
       </div>
    );
 };
 
 export default DataCard;
+/**
+ *
+ *
+ *  helper functions
+ */
+function findWordMaxSentimetnScore(arr) {
+   let word = { id: arr[0].id, score: arr[0].sentimentScore };
+
+   for (let i = 1; i < arr.length; i++) {
+      if (arr[i].sentimentScore > word.score) {
+         word.id = arr[i].id;
+         word.score = arr[i].sentimentScore;
+      }
+   }
+   return word.id;
+}

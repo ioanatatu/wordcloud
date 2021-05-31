@@ -1,30 +1,26 @@
 import React from 'react';
 import ReactWordcloud from 'react-wordcloud';
-
-// import 'd3-transition';
 import { select } from 'd3-selection';
 
 const options = {
    enableTooltip: false,
    deterministic: false,
-   fontFamily: 'DM Sans',
-   fontSizes: [15, 25, 35, 45, 50, 70],
-   fontStyle: 'normal',
-   fontWeight: 'normal',
-   padding: 1,
+   fontFamily: 'Roboto',
+   fontSizes: [15, 40],
+   padding: 2,
    rotations: 1,
-   rotationAngles: [0, -90],
-   transitionDuration: 100,
+   rotationAngles: [0],
 };
 
-const WordCloud = ({ words, currentWordClicked }) => {
+const WordCloud = ({ words, handleClickedWord }) => {
    const callbacks = {
       getWordColor: (word) =>
-         word.value > 60 ? '#05c46b' : word.value < 40 ? '#f53b57' : '#808e9b',
+         word.value > 60 ? '#05c46b' : word.value < 40 ? '#f53b57' : '#919eaa',
       onWordClick: getCallback('onWordClick'),
       onWordMouseOut: getCallback('onWordMouseOut'),
       onWordMouseOver: getCallback('onWordMouseOver'),
    };
+
    function getCallback(callback) {
       return function (word, event) {
          const isActive = callback !== 'onWordMouseOut';
@@ -34,13 +30,12 @@ const WordCloud = ({ words, currentWordClicked }) => {
          text
             .on('click', () => {
                if (isActive) {
-                  currentWordClicked(word.id);
+                  handleClickedWord(word.id);
                }
             })
-            .attr('font-weight', isActive ? 'bold' : 'normal');
+            .attr('opacity', isActive ? '0.7' : '1');
       };
    }
-
    return (
       <div style={{ height: 400, width: 600 }}>
          <ReactWordcloud
