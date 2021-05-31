@@ -2,7 +2,7 @@
 import css from './DataCard.module.css';
 
 // react
-import React from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 
 // components
 import Title from '../../components/Title';
@@ -10,6 +10,23 @@ import WordCloud from '../../components/WordCloud';
 import Metadata from '../../components/Metadata/Metadata';
 
 const DataCard = ({ title, data }) => {
+   const [currentWord, setCurrentWord] = useState(null);
+   const [currentWordMetadata, setCurrentWordMetadata] = useState(null);
+
+   useLayoutEffect(() => {
+      setCurrentWordMetadata(data[0]);
+   }, [data]);
+
+   useEffect(() => {
+      const wordMetadata = data.find((word) => currentWord === word.id);
+
+      setCurrentWordMetadata(wordMetadata);
+   }, [currentWord, data]);
+
+   const currentWordClicked = (word) => {
+      setCurrentWord(word);
+   };
+
    const mappedData = data.map((topic) => {
       const mappedTopic = {};
       mappedTopic.id = topic.id;
@@ -23,20 +40,20 @@ const DataCard = ({ title, data }) => {
       <div className={css.container}>
          <Title text={title} />
          <main>
-            <WordCloud words={mappedData} />
+            <WordCloud
+               words={mappedData}
+               currentWordClicked={currentWordClicked}
+            />
          </main>
-         {/* <aside>
-            {data.map((topic) => {
-               return (
-                  <Metadata
-                     key={topic.id}
-                     topic={topic.label}
-                     total={topic.volume}
-                     sentiment={topic.sentiment}
-                  />
-               );
-            })}
-         </aside> */}
+         <aside>
+            {currentWordMetadata && (
+               <Metadata
+                  topic={currentWordMetadata.label}
+                  total={currentWordMetadata.volume}
+                  sentiment={currentWordMetadata.sentiment}
+               />
+            )}
+         </aside>
       </div>
    );
 };

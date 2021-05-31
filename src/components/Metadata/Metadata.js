@@ -2,7 +2,7 @@
 import css from './Metadata.module.css';
 import React from 'react';
 
-const Metadata = ({ id, topic, total, sentiment }) => (
+const Metadata = ({ topic, total, sentiment }) => (
    <div className={css.general}>
       <h2>{topic}</h2>
       <h3>Total Mentions: {total}</h3>
