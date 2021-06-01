@@ -25,6 +25,7 @@ const DataCard = ({ title, data }) => {
             id: topic.id,
             name: topic.label,
             weight: topic.sentimentScore,
+            color: assignColor(topic.sentimentScore),
          };
       });
       setMappedData(mappedData);
@@ -52,7 +53,6 @@ const DataCard = ({ title, data }) => {
 export default DataCard;
 /**
  *
- *
  *  helper functions
  */
 function findWordMaxSentimentScore(arr) {
@@ -65,4 +65,7 @@ function findWordMaxSentimentScore(arr) {
       }
    }
    return word.id;
+}
+function assignColor(score) {
+   return score > 60 ? '#00b894' : score < 40 ? '#d63031' : '#b2bec3';
 }

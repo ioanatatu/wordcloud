@@ -1,6 +1,6 @@
 // style
 import css from './Metadata.module.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const Metadata = ({ currentWord }) => {
    // useEffect(() => {

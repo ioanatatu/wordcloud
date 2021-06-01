@@ -47,33 +47,39 @@
 //    );
 // };
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/wordcloud.js')(Highcharts);
 
 const WordCloud = ({ words, handleClickedWord }) => {
-   const word = [
-      {
-         name: 'Lorem',
-         weight: 3,
-      },
-      {
-         name: 'Ipsum',
-         weight: 2,
-      },
-      {
-         name: 'Dolor',
-         weight: 1,
-      },
-   ];
+   const refContainer = useRef('');
+
+   const func = (e) => {
+      console.log('point', e.point.color);
+      handleClickedWord(e.point.id);
+   };
+
    const options = {
       series: [
          {
-            colors: ['#28B463', '#27AE60', '#186A3B', '#ABEBC6', '#73C6B6'],
+            colors: ['#28B463', '#27AE60'],
             type: 'wordcloud',
-            data: words, //passing the data from props
-            name: 'Count',
+            data: words,
+            // data: [
+            //    {
+            //       id: 'shdsjdhj',
+            //       name: 'sdfdf',
+            //       weight: 1,
+            //    },
+            //    {
+            //       id: '54545',
+            //       name: '<span style="color:red;">cantine am berghain</span>',
+            //       weight: 0.5,
+            //    },
+            // ], //passing the data from props
+            name: 'sentiment score',
+            color: '#186A3B',
          },
       ],
       title: {
@@ -83,15 +89,27 @@ const WordCloud = ({ words, handleClickedWord }) => {
          height: 330,
          margin: 15,
       },
+      plotOptions: {
+         wordcloud: {
+            point: {
+               events: {
+                  // mouseOver: func,
+                  click: func,
+               },
+               color: '#186A3B',
+            },
+         },
+      },
    };
 
    return (
       <div>
-         {/* React wrapper for Highcharts */}
          <HighchartsReact
             highcharts={Highcharts}
             constructorType={'chart'}
             options={options}
+            ref={refContainer}
+            // callback={(e) => console.log(e)}
          />
       </div>
    );
