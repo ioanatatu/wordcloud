@@ -10,12 +10,12 @@ import Metadata from '../../components/Metadata/Metadata';
 
 const DataCard = ({ title, data }) => {
    const [currentWord, setCurrentWord] = useState({});
-   const [mappedData, setMappedData] = useState(null);
+   const [mappedData, setMappedData] = useState({});
 
    useEffect(() => {
       // find topic with highest sentiment score and display it as default
       const wordMaxSentimentScore = data.find(
-         (word) => findWordMaxSentimetnScore(data) === word.id
+         (word) => findWordMaxSentimentScore(data) === word.id
       );
       setCurrentWord(wordMaxSentimentScore);
 
@@ -23,8 +23,8 @@ const DataCard = ({ title, data }) => {
       const mappedData = data.map((topic) => {
          return {
             id: topic.id,
-            text: topic.label,
-            value: topic.sentimentScore,
+            name: topic.label,
+            weight: topic.sentimentScore,
          };
       });
       setMappedData(mappedData);
@@ -55,7 +55,7 @@ export default DataCard;
  *
  *  helper functions
  */
-function findWordMaxSentimetnScore(arr) {
+function findWordMaxSentimentScore(arr) {
    let word = { id: arr[0].id, score: arr[0].sentimentScore };
 
    for (let i = 1; i < arr.length; i++) {
