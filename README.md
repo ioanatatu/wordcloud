@@ -18,7 +18,7 @@
 1. clone the project to your local machine by running
 
 ```bash
-git clone https://github.com/ioanatatu/test.git
+git clone https://github.com/ioanatatu/wordcloud.git
 ```
 
 2. in the terminal cd into project directory
