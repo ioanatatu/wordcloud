@@ -36,9 +36,13 @@ const Metadata = ({ label, volume, sentiment }) => {
 };
 
 Metadata.propTypes = {
-   label: PropTypes.string,
-   volume: PropTypes.number,
-   sentiment: PropTypes.object,
+   label: PropTypes.string.isRequired,
+   volume: PropTypes.number.isRequired,
+   sentiment: PropTypes.shape({
+      positive: PropTypes.number,
+      negative: PropTypes.number,
+      neutral: PropTypes.number,
+   }),
 };
 
 export default Metadata;
