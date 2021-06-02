@@ -16,6 +16,7 @@ const Metadata = ({ label, volume, sentiment }) => {
 
    let positive, negative, neutral;
 
+   // assign 0 if sentiment does not have a property
    if (sentiment) {
       positive = sentiment.positive || 0;
       negative = sentiment.negative || 0;
@@ -36,8 +37,8 @@ const Metadata = ({ label, volume, sentiment }) => {
 };
 
 Metadata.propTypes = {
-   label: PropTypes.string.isRequired,
-   volume: PropTypes.number.isRequired,
+   label: PropTypes.string,
+   volume: PropTypes.number,
    sentiment: PropTypes.shape({
       positive: PropTypes.number,
       negative: PropTypes.number,

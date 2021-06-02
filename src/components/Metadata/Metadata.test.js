@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 
 import Metadata from './Metadata';
 
+// test if component has been rendered
 test('checkMetadataRender', () => {
    const { queryByTitle } = render(<Metadata />);
 
