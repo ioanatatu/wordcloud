@@ -1,30 +1,47 @@
-// style
 import css from './DataCard.module.css';
 
-// react
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 // components
-import WordCloud from '../../components/WordCloud';
+import WordCloud from '../../components/WordCloud/WordCloud';
 import Metadata from '../../components/Metadata/Metadata';
 
+// helper functions
+import {
+   findMinMaxByProperty,
+   mapWordMetadata,
+   assignSize,
+   assignColor,
+} from '../../helpers/helperFunctions';
+
+/**
+ * DataCard component receives data and maps it for WordCloud and Metadata props
+ *
+ * @param {string} title The title given to the DataCard.
+ * @param {array} data Array of topics.
+ */
 const DataCard = ({ title, data }) => {
    const [currentWord, setCurrentWord] = useState({});
-   const [mappedData, setMappedData] = useState({});
+   const [mappedData, setMappedData] = useState([]);
 
    useEffect(() => {
-      // find topic with highest sentiment score and display it as default
+      /*
+       * find topic with highest sentiment score and
+       * display its metadata as default
+       */
       const wordMaxSentimentScore = data.find(
-         (word) => findWordMaxSentimentScore(data) === word.id
+         (word) =>
+            findMinMaxByProperty(data, 'sentimentScore', 'max') === word.id
       );
-      setCurrentWord(wordMaxSentimentScore);
+      setCurrentWord(mapWordMetadata(wordMaxSentimentScore));
 
-      // map incoming data on worldcloud data model
+      // map incoming data on worldcloud data model in state
       const mappedData = data.map((topic) => {
          return {
             id: topic.id,
             name: topic.label,
-            weight: topic.sentimentScore,
+            weight: assignSize(topic.volume),
             color: assignColor(topic.sentimentScore),
          };
       });
@@ -33,7 +50,7 @@ const DataCard = ({ title, data }) => {
 
    const handleClickedWord = (id) => {
       const currentWord = data.find((word) => id === word.id);
-      setCurrentWord(currentWord);
+      setCurrentWord(mapWordMetadata(currentWord));
    };
 
    return (
@@ -44,28 +61,44 @@ const DataCard = ({ title, data }) => {
                words={mappedData}
                handleClickedWord={handleClickedWord}
             />
-            {currentWord && <Metadata currentWord={currentWord} />}
+            {currentWord && currentWord.sentiment && (
+               <Metadata
+                  label={currentWord.label}
+                  volume={currentWord.volume}
+                  sentiment={currentWord.sentiment}
+               />
+            )}
          </div>
       </div>
    );
 };
 
-export default DataCard;
-/**
- *
- *  helper functions
- */
-function findWordMaxSentimentScore(arr) {
-   let word = { id: arr[0].id, score: arr[0].sentimentScore };
+DataCard.propTypes = {
+   title: PropTypes.string,
+   data: PropTypes.array,
+};
 
-   for (let i = 1; i < arr.length; i++) {
-      if (arr[i].sentimentScore > word.score) {
-         word.id = arr[i].id;
-         word.score = arr[i].sentimentScore;
-      }
-   }
-   return word.id;
-}
-function assignColor(score) {
-   return score > 60 ? '#00b894' : score < 40 ? '#d63031' : '#b2bec3';
-}
+export default DataCard;
+
+// function findMinMaxByProperty(arr, property, m) {
+//    // if m !===min throw erre
+//    let word = { id: arr[0].id };
+//    word[property] = arr[0][property];
+
+//    if (m === 'min') {
+//       for (let i = 1; i < arr.length; i++) {
+//          if (arr[i][property] < word[property]) {
+//             word.id = arr[i].id;
+//             word[property] = arr[i][property];
+//          }
+//       }
+//    } else if (m === 'max') {
+//       for (let i = 1; i < arr.length; i++) {
+//          if (arr[i][property] > word[property]) {
+//             word.id = arr[i].id;
+//             word[property] = arr[i][property];
+//          }
+//       }
+//    }
+//    return word.id;
+// }
