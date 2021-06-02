@@ -8,7 +8,7 @@ import data from './object.json';
 
 function App() {
    return (
-      <div className='App'>
+      <div className='App' title='app'>
          <DataCard data={data.topics} title='Word Cloud' />
       </div>
    );
