@@ -65,7 +65,7 @@ export const mapWordMetadata = (word) => {
  */
 export const assignSize = (val) => {
    // declare minimum size
-   let size = 8;
+   let size = 12;
 
    // cover invaid input
    if (isNaN(val) && !val) throw new Error('null or undefined');
@@ -74,15 +74,15 @@ export const assignSize = (val) => {
 
    // handle valid cases
    if (val > 10 && val <= 30) {
-      size = 14;
+      size = 16;
    } else if (val > 30 && val <= 60) {
-      size = 18;
+      size = 20;
    } else if (val > 60 && val <= 90) {
-      size = 22;
+      size = 24;
    } else if (val > 90 && val <= 120) {
-      size = 25;
-   } else if (val > 120) {
       size = 28;
+   } else if (val > 120) {
+      size = 30;
    }
 
    return size;

@@ -24,13 +24,28 @@ const Metadata = ({ label, volume, sentiment }) => {
    }
 
    return (
-      <div className={css.general}>
-         <h2 title='topic'>{label}</h2>
-         <h3 title='mentions'>Total Mentions: {volume}</h3>
+      <div className={css.wrapper}>
+         <h4 className={css.title}>Topic</h4>
+         <h2 className={css.topic} title='topic'>
+            {label}
+         </h2>
+         <h3 className={css.totalMentions} title='mentions'>
+            Total Mentions: <span>{volume}</span>
+         </h3>
          <ul className={css.detailedMentions}>
-            <li title='positive'>Positive: {positive}</li>
-            <li title='neutral'>Neutral: {neutral}</li>
-            <li title='negative'>Negative: {negative}</li>
+            {/*
+             * TODO: map sentiment on array of objects inside DataCard
+             * such that data can be mapped on li elements
+             */}
+            <li title='positive'>
+               Positive: <span>{positive}</span>
+            </li>
+            <li title='neutral'>
+               Neutral: <span>{neutral}</span>
+            </li>
+            <li title='negative'>
+               Negative: <span>{negative}</span>
+            </li>
          </ul>
       </div>
    );

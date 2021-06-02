@@ -118,25 +118,25 @@ test('invalid input for size', () => {
 
 test('correct size attribution', () => {
    // val > 10 && val <= 30;
-   expect(assignSize(0)).toBe(8);
-   expect(assignSize(10)).toBe(8);
-   expect(assignSize(11)).toBe(14);
-   expect(assignSize(29)).toBe(14);
-   expect(assignSize(30)).toBe(14);
+   expect(assignSize(0)).toBe(12);
+   expect(assignSize(10)).toBe(12);
+   expect(assignSize(11)).toBe(16);
+   expect(assignSize(29)).toBe(16);
+   expect(assignSize(30)).toBe(16);
    // val > 30 && val <= 60;
-   expect(assignSize(31)).toBe(18);
-   expect(assignSize(59)).toBe(18);
-   expect(assignSize(60)).toBe(18);
+   expect(assignSize(31)).toBe(20);
+   expect(assignSize(59)).toBe(20);
+   expect(assignSize(60)).toBe(20);
    // val > 60 && val <= 90;
-   expect(assignSize(61)).toBe(22);
-   expect(assignSize(89)).toBe(22);
-   expect(assignSize(90)).toBe(22);
+   expect(assignSize(61)).toBe(24);
+   expect(assignSize(89)).toBe(24);
+   expect(assignSize(90)).toBe(24);
    // val > 90 && val <= 120;
-   expect(assignSize(91)).toBe(25);
-   expect(assignSize(119)).toBe(25);
-   expect(assignSize(120)).toBe(25);
+   expect(assignSize(91)).toBe(28);
+   expect(assignSize(119)).toBe(28);
+   expect(assignSize(120)).toBe(28);
    // val > 120;
-   expect(assignSize(121)).toBe(28);
+   expect(assignSize(121)).toBe(30);
 });
 
 /**

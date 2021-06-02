@@ -19,7 +19,7 @@ The app uses **highcharts-react-official** package as a dependency so make sure 
 git clone https://github.com/ioanatatu/wordcloud.git
 ```
 
-2. in the terminal cd into project directory
+2. in the terminal cd into the project directory
 3. to install required dependencies run:
 
 ```bash
@@ -32,4 +32,10 @@ npm install
 npm start
 ```
 
-This will open a tab in your browser window with the app. Port 3005 is used to avoid conflicting with React's default PORT 3000.
+This will open a tab in your browser window with the app. This project uses PORT 3005 to avoid conflicts with React's default PORT 3000.
+
+5. to run tests open a new terminal tab and run:
+
+```bash
+npm test
+```

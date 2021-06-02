@@ -12,9 +12,24 @@ body {
    width: 100vw;
    height: 100vh;
    text-align: center;
-   font-family: 'Roboto', sans-serif;
+   font-family: 'Source Sans Pro', sans-serif;
    display: flex;
    justify-content: center;
    align-items: center;
-   /* color: #ec475d; */
+   background-color: #f2f5f9;
+}
+.custom-word {
+   font-weight: 600 !important;
+   cursor: pointer;
+}
+.custom-word:hover {
+   transform: scale(1.015);
+   transition: transform 0.2s linear;
+}
+.wordcloud {
+   padding: 10px;
+   border-radius: 12px;
+   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);
+   background: rgb(255, 255, 255);
+   margin-right: 20px;
 }

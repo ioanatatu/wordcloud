@@ -43,6 +43,7 @@ const DataCard = ({ title, data }) => {
             name: topic.label,
             weight: assignSize(topic.volume),
             color: assignColor(topic.sentimentScore),
+            className: 'custom-word',
          };
       });
       setMappedData(mappedData);

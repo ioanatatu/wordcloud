@@ -59,7 +59,7 @@ const WordCloud = ({ words, handleClickedWord }) => {
    };
 
    return (
-      <div title='wordcloud'>
+      <div title='wordcloud' className='wordcloud'>
          <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
    );

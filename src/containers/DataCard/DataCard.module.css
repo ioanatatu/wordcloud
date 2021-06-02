@@ -1,17 +1,16 @@
 .card {
-   border: 1px solid #dadce0;
    padding: 30px;
-   border-radius: 10px;
-   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+   border-radius: 12px;
 }
 
 .title {
-   font-weight: 400;
+   font-size: 20px;
+   font-weight: 600;
    color: rgb(61, 66, 71);
    text-align: left;
    margin: 0;
-   margin-left: 10px;
-   margin-bottom: 30px;
+   margin-left: 20px;
+   margin-bottom: 20px;
 }
 
 .wrapper {
